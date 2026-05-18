@@ -19,17 +19,13 @@
 //   result = round(cos_or_sin × 16384)
 //
 // Pass criterion: |result - expected| <= 8  (~0.05% of full scale)
-// 15-iteration Q2.14 CORDIC accumulates up to ~5 LSBs of truncation error
-// across the shift-add chain; threshold of 8 gives comfortable margin.
 // =========================================================================
 
 `timescale 1ns / 1ps
+`include "../src/CRU.v"
 
 module CRU_tb;
 
-    // -----------------------------------------------------------------------
-    // DUT signals
-    // -----------------------------------------------------------------------
     reg         clk;
     reg         reset;
     reg         start;
@@ -40,9 +36,6 @@ module CRU_tb;
     wire               busy;
     wire               done;
 
-    // -----------------------------------------------------------------------
-    // DUT instantiation
-    // -----------------------------------------------------------------------
     CRU uut (
         .clk      (clk),
         .reset    (reset),
@@ -54,22 +47,16 @@ module CRU_tb;
         .done     (done)
     );
 
-    // -----------------------------------------------------------------------
-    // Clock: 10 ns period
-    // -----------------------------------------------------------------------
     initial clk = 0;
     always #5 clk = ~clk;
 
-    // -----------------------------------------------------------------------
-    // Helper task: run one CORDIC computation and report results
-    // -----------------------------------------------------------------------
     integer pass_count;
     integer fail_count;
 
     task run_test;
-        input signed [15:0] angle;      // Q3.13
-        input signed [15:0] exp_cos;    // Q2.14
-        input signed [15:0] exp_sin;    // Q2.14
+        input signed [15:0] angle;
+        input signed [15:0] exp_cos;
+        input signed [15:0] exp_sin;
         input [255:0]        label;
 
         integer cos_err, sin_err;
@@ -113,34 +100,8 @@ module CRU_tb;
         end
     endtask
 
-    // -----------------------------------------------------------------------
-    // Stimulus
-    // -----------------------------------------------------------------------
-    // Q3.13 angle input:  round(radians × 8192)
-    // Q2.14 expected out: round(value   × 16384)
-    //
-    // Acute  (Q1, no fold):
-    //   0        →  angle=0,      cos=16384,  sin=0
-    //   π/6      →  angle=4291,   cos=14189,  sin=8192
-    //   π/4      →  angle=6434,   cos=11585,  sin=11585
-    //   π/3      →  angle=8579,   cos=8192,   sin=14189
-    //
-    // Obtuse (Q2, fold by −π):
-    //   2π/3     →  angle=17157,  cos=-8192,  sin=14189
-    //   3π/4     →  angle=19302,  cos=-11585, sin=11585
-    //   5π/6     →  angle=21446,  cos=-14189, sin=8192
-    //
-    // Boundary:
-    //   π/2      →  angle=12868,  cos=0,      sin=16384
-    //   π        →  angle=25737,  cos=-16384, sin=0
-    //
-    // Negative (Q4 and Q3):
-    //   -π/4     →  angle=-6434,  cos=11585,  sin=-11585
-    //   -π/2     →  angle=-12868, cos=0,      sin=-16384
-    //   -3π/4    →  angle=-19302, cos=-11585, sin=-11585
-
     initial begin
-        $dumpfile("../waves/cru_tb.vcd");
+        $dumpfile("waves/cru_tb.vcd");
         $dumpvars(0, CRU_tb);
 
         pass_count = 0;

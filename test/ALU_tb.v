@@ -1,8 +1,6 @@
 `timescale 1ns / 1ps
-`include "Parameter.v"
-`include "ALU.v"
-// iverilog -Wall -o alu_sim ALU_tb.v && ./alu_sim && gtkwave alu_waves.vcd &
-//
+`include "../src/Parameter.v"
+`include "../src/ALU.v"
 
 module ALU_tb;
 
@@ -14,15 +12,15 @@ module ALU_tb;
     wire                    zero;
 
     ALU uut (
-        .a(a), 
-        .b(b), 
-        .ALUcnt(ALUcnt), 
-        .result(result), 
+        .a(a),
+        .b(b),
+        .ALUcnt(ALUcnt),
+        .result(result),
         .zero(zero)
     );
 
     initial begin
-        $dumpfile("alu_waves.vcd");
+        $dumpfile("waves/alu_waves.vcd");
         $dumpvars(0, ALU_tb);
     end
 
@@ -31,10 +29,10 @@ module ALU_tb;
 
         //#############################################################################
         // Test 1: Addition (10 + 5 = 15)
-        a = `WORDWIDTH'd10; 
-        b = `WORDWIDTH'd5; 
-        ALUcnt = 3'b000; 
-        #10; // Wait 10 simulation time units for logic to settle
+        a = `WORDWIDTH'd10;
+        b = `WORDWIDTH'd5;
+        ALUcnt = 3'b000;
+        #10;
 
         if (result !== `WORDWIDTH'd15)
             $display("FAIL: ADD expected 15, got %0d", result);
@@ -43,10 +41,10 @@ module ALU_tb;
 
         //#############################################################################
         // Test 2: Zero Flag (7 - 7 = 0)
-        a = `WORDWIDTH'd7; 
-        b = `WORDWIDTH'd7; 
-        ALUcnt = 3'b001; 
-        #10; 
+        a = `WORDWIDTH'd7;
+        b = `WORDWIDTH'd7;
+        ALUcnt = 3'b001;
+        #10;
 
         if (zero !== 1'b1)
             $display("FAIL: Zero flag failed. Result: %0d, Zero: %b", result, zero);
@@ -54,7 +52,7 @@ module ALU_tb;
             $display("PASS: Zero flag working");
 
         //#############################################################################
-        // Test 3: Subtraction 
+        // Test 3: Subtraction
         a = `WORDWIDTH'd10;
         b = `WORDWIDTH'd5;
         ALUcnt = 3'b001;
@@ -67,9 +65,9 @@ module ALU_tb;
 
         //#############################################################################
         // Test 4: Bitwise AND
-        a = `WORDWIDTH'b0001111000010101; // 1E15
-        b = `WORDWIDTH'b1111000011111111; // F0FF
-        ALUcnt = 3'b010;                  // 1015
+        a = `WORDWIDTH'b0001111000010101;
+        b = `WORDWIDTH'b1111000011111111;
+        ALUcnt = 3'b010;
         #10;
 
         if (result !== `WORDWIDTH'b0001000000010101)
@@ -79,9 +77,9 @@ module ALU_tb;
 
         //#############################################################################
         // Test 5: Bitwise OR
-        a = `WORDWIDTH'b0001111000010101;  //1E15
-        b = `WORDWIDTH'b1111000011111111;  //F0FF
-        ALUcnt = 3'b011;                   //FEFF
+        a = `WORDWIDTH'b0001111000010101;
+        b = `WORDWIDTH'b1111000011111111;
+        ALUcnt = 3'b011;
         #10;
 
         if (result !== `WORDWIDTH'b1111111011111111)
@@ -89,11 +87,11 @@ module ALU_tb;
         else
             $display("PASS: OR  b0001111000010101 || b1111000011111111 = b%016b", result);
 
-        // #############################################################################
+        //#############################################################################
         // Test 6: Bitwise NOT
-        a = `WORDWIDTH'b0001111000010101;  //1E15
-        b = `WORDWIDTH'b0;                 
-        ALUcnt = 3'b100;                   //E1EA
+        a = `WORDWIDTH'b0001111000010101;
+        b = `WORDWIDTH'b0;
+        ALUcnt = 3'b100;
         #10;
 
         if (result !== `WORDWIDTH'b1110000111101010)
@@ -101,32 +99,32 @@ module ALU_tb;
         else
             $display("PASS: NOT b0001111000010101 = b%016b", result);
 
-        // #############################################################################
+        //#############################################################################
         // Test 7: SHL by 1
-        a = `WORDWIDTH'b0001111000010101;  // 1E15
-        b = `WORDWIDTH'b0000000000000001;  //
+        a = `WORDWIDTH'b0001111000010101;
+        b = `WORDWIDTH'b0000000000000001;
         ALUcnt = 3'b101;
         #10;
 
-        if (result !== `WORDWIDTH'b0011110000101010) // 3C2A
+        if (result !== `WORDWIDTH'b0011110000101010)
             $display("FAIL: SHL expected 0011110000101010, got %016b", result);
         else
             $display("PASS: SHL b0001111000010101 << 1 = %016b", result);
 
-        // #######################################################################
+        //#############################################################################
         // Test 8: SHR by 8
-        a = `WORDWIDTH'b0001111000010101;  // 1E15 
-        b = `WORDWIDTH'b0000000000001000;  // 0008
+        a = `WORDWIDTH'b0001111000010101;
+        b = `WORDWIDTH'b0000000000001000;
         ALUcnt = 3'b110;
         #10;
 
-        if (result !== `WORDWIDTH'b0000000000011110) // 001E
+        if (result !== `WORDWIDTH'b0000000000011110)
             $display("FAIL:  expected 0000000000011110, got %0d", result);
         else
             $display("PASS: SHR 0001111000010101 >> 8 = %016b", result);
 
-        // #######################################################################
-        // Test 9: SLT 
+        //#############################################################################
+        // Test 9: SLT (a > b, expect 0)
         a = `WORDWIDTH'b0000000000001000;
         b = `WORDWIDTH'b0000000000000100;
         ALUcnt = 3'b111;
@@ -137,7 +135,7 @@ module ALU_tb;
         else
             $display("PASS: SLT 0000000000001000 < 0000000000000100 = %0d", result);
 
-        // Test 9: SLT 
+        // Test 9b: SLT (a < b, expect 1)
         a = `WORDWIDTH'b0000000000000100;
         b = `WORDWIDTH'b0000000000001000;
         ALUcnt = 3'b111;
@@ -148,20 +146,8 @@ module ALU_tb;
         else
             $display("PASS: SLT 0000000000000100 < 0000000000001000 = %0d", result);
 
-        /*// Test 
-        a = `WORDWIDTH';
-        b = `WORDWIDTH';
-        ALUcnt = 3'b;
-        #10;
-
-        if (result !== `WORDWIDTH')
-            $display("FAIL:  expected , got %0d", result);
-        else
-            $display("PASS: ", result);*/
-
-
         $display("--- Tests Complete ---");
-        $finish; 
+        $finish;
     end
 
 endmodule

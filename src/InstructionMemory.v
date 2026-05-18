@@ -12,10 +12,8 @@
 `include "Parameter.v"
 
 module InstructionMemory(
-    input [`WORDWIDTH-1:0] pc,
+    input  [`WORDWIDTH-1:0] pc,
     output [`WORDWIDTH-1:0] instruction
-
-    
 );
     reg [`WORDWIDTH-1:0] imem [`INSTRUCTION_DEPTH-1:0];
 
@@ -24,6 +22,5 @@ module InstructionMemory(
     end
 
     assign instruction = imem[pc[4:1]];
-
 
 endmodule

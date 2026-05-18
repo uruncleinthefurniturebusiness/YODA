@@ -21,8 +21,6 @@ module GPR (
 
     output  [`WORDWIDTH-1:0] read_data1,
     output  [`WORDWIDTH-1:0] read_data2
-    
-
 );
 
     reg     [`WORDWIDTH-1:0] registers [7:0];

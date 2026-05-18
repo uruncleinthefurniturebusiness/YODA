@@ -16,10 +16,8 @@ module DataMemory(
     input MemWr,
     input MemRd,
     input [2:0] addr,
-    input [`WORDWIDTH-1:0] write_data,
+    input  [`WORDWIDTH-1:0] write_data,
     output [`WORDWIDTH-1:0] read_data
-
-    
 );
     reg [`WORDWIDTH-1:0] dmem [`DATA_DEPTH-1:0];
 
@@ -30,11 +28,9 @@ module DataMemory(
     assign read_data = (MemRd == 1'b1) ? dmem[addr] : `WORDWIDTH'd0;
 
     always @(posedge clk) begin
-        if (MemWr == 1'b1) begin    
+        if (MemWr == 1'b1) begin
             dmem[addr] <= write_data;
         end
-
     end
-
 
 endmodule

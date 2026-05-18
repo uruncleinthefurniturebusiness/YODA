@@ -1,8 +1,6 @@
 `timescale 1ns / 1ps
-`include "Parameter.v"
-`include "InstructionMemory.v" 
-
-// iverilog -Wall -o imem_sim InstructionMemory_tb.v && ./imem_sim && gtkwave imem_waves.vcd &
+`include "../src/Parameter.v"
+`include "../src/InstructionMemory.v"
 
 module InstructionMemory_tb;
 
@@ -17,11 +15,9 @@ module InstructionMemory_tb;
     integer i;
 
     initial begin
-        // Setup waveform dumping for GTKWave
-        $dumpfile("imem_waves.vcd");
+        $dumpfile("waves/imem_waves.vcd");
         $dumpvars(0, InstructionMemory_tb);
 
-        // Dumping memory array in gtkwave for debug
         $dumpvars(0, uut.imem[0]);
         $dumpvars(0, uut.imem[1]);
         $dumpvars(0, uut.imem[2]);
@@ -41,12 +37,9 @@ module InstructionMemory_tb;
 
         $display("--- Starting Instruction Memory Test ---");
 
-        // Loop through all 16 valid instruction addresses (0, 2, 4 ... 30)
         for (i = 0; i < 16; i = i + 1) begin
-            pc = i * 2;  // PC increments by 2
-            #10;         // Wait 10ns for the combinational logic to fetch the data
-            
-            // Print the results to the terminal
+            pc = i * 2;
+            #10;
             $display("Time: %0t | PC: %02d (0x%04h) | Fetched Instruction: %4h", $time, pc, pc, instruction);
         end
 

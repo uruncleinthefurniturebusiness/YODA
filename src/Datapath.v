@@ -42,7 +42,7 @@ module Datapath(
     reg  [`WORDWIDTH-1:0] pc;
     wire [`WORDWIDTH-1:0] next_pc;
     wire [`WORDWIDTH-1:0] current_instruction;
-    
+
     // GPR Wires
     wire [2:0]            write_reg_addr;
     wire [`WORDWIDTH-1:0] write_data;
@@ -54,7 +54,7 @@ module Datapath(
     wire [`WORDWIDTH-1:0] alu_input_b;
     wire [`WORDWIDTH-1:0] alu_result;
     wire alu_zero;
-    
+
     // Data Memory Wires
     wire [`WORDWIDTH-1:0] memory_read_data;
 
@@ -78,7 +78,7 @@ module Datapath(
     // INSTRUCTION MEMORY
     // ---------------------------------------------------------
     InstructionMemory inst_mem (
-        .pc(pc), 
+        .pc(pc),
         .instruction(current_instruction)
     );
 
@@ -109,7 +109,7 @@ module Datapath(
     // ALU CONTROL UNIT
     // ---------------------------------------------------------
     ALU_Control alu_ctrl (
-        .ALUOp(ALUOp),                       // From Control Unit IN port
+        .ALUOp(ALUOp),
         .opcode(current_instruction[15:12]),
         .ALUcnt(alu_control_code)
     );
@@ -124,7 +124,7 @@ module Datapath(
         .clk      (clk),
         .reset    (reset),
         .start    (cru_start),
-        .angle_in (read_data1),   // RS1 holds the input angle
+        .angle_in (read_data1),
         .cos_out  (cru_cos),
         .sin_out  (cru_sin),
         .busy     (cru_busy),
@@ -132,19 +132,17 @@ module Datapath(
     );
 
     // ---------------------------------------------------------
-    // MULTIPLEXER: ALUSrc (Choose between Reg2 or Immediate)
+    // MULTIPLEXER: ALUSrc
     // ---------------------------------------------------------
-    // Note: You will need to sign-extend the immediate value. 
-    // Sign-extend the 6-bit offset [5:0] to 16 bits
     wire [`WORDWIDTH-1:0] sign_extended_imm = {{10{current_instruction[5]}}, current_instruction[5:0]};
-    
+
     assign alu_input_b = (ALUSrc == 1'b1) ? sign_extended_imm : read_data2;
 
     // THE ALU
     ALU main_alu (
         .a(read_data1),
-        .b(alu_input_b),          // From the ALUSrc MUX
-        .ALUcnt(alu_control_code),// From the ALU_Control
+        .b(alu_input_b),
+        .ALUcnt(alu_control_code),
         .result(alu_result),
         .zero(alu_zero)
     );
@@ -154,8 +152,8 @@ module Datapath(
         .clk(clk),
         .MemRd(MemRd),
         .MemWr(MemWr),
-        .addr(alu_result[2:0]),   // Usually, the ALU calculates the memory address
-        .write_data(read_data2),  // The data we want to store comes from Register 2
+        .addr(alu_result[2:0]),
+        .write_data(read_data2),
         .read_data(memory_read_data)
     );
 
@@ -165,46 +163,34 @@ module Datapath(
         (MemRd && alu_result[2:0] == 3'd7) ? cru_sin : memory_read_data;
 
     // MULTIPLEXER: MemToReg / COP write-back
-    //   COP done  → write cos to destination register
-    //   MemToReg  → write data memory read (with sin intercept at addr 7)
-    //   default   → write ALU result
     assign write_data = (CopEn & cru_done) ? cru_cos  :
                         MemToReg           ? mem_read_data_muxed :
                                              alu_result;
 
-
     // --- PC Calculation Logic ---
     wire [`WORDWIDTH-1:0] pc_plus_2 = pc + 2;
-    
-    // Branch Target: Shift the sign-extended immediate left by 1, then add to PC+2
+
     wire [`WORDWIDTH-1:0] branch_offset = sign_extended_imm << 1;
     wire [`WORDWIDTH-1:0] branch_target = pc_plus_2 + branch_offset;
-    
-    // Jump Target: Upper 3 bits of PC, 12-bit offset, and a 0 at the end
+
     wire [`WORDWIDTH-1:0] jump_target = {pc[15:13], current_instruction[11:0], 1'b0};
 
-    // Determine if we actually take the branch based on BEQ/BNE rules
     wire is_beq = (opcode == 4'b1011);
     wire is_bne = (opcode == 4'b1100);
     wire take_branch = Branch & ((is_beq & alu_zero) | (is_bne & ~alu_zero));
 
-    // The sequential PC Update
-    // cru_stall holds the PC frozen while the CRU is running.
-    // The stall clears on the same cycle cru_done rises, so the
-    // COS write-back and PC advance happen together at that posedge.
     always @(posedge clk) begin
         if (reset) begin
             pc <= `WORDWIDTH'd0;
         end else if (cru_stall) begin
-            pc <= pc;               // CRU in-flight: freeze PC
+            pc <= pc;
         end else if (Jump) begin
-            pc <= jump_target;      // Execute JMP
+            pc <= jump_target;
         end else if (take_branch) begin
-            pc <= branch_target;    // Execute BEQ or BNE
+            pc <= branch_target;
         end else begin
-            pc <= pc_plus_2;        // Standard execution
+            pc <= pc_plus_2;
         end
     end
 
 endmodule
-    
