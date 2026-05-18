@@ -1,0 +1,59 @@
+$date
+	Wed Apr 22 15:41:48 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module ALU_tb $end
+$var wire 1 ! zero $end
+$var wire 16 " result [15:0] $end
+$var reg 16 # a [15:0] $end
+$var reg 3 $ alu_control [2:0] $end
+$var reg 16 % b [15:0] $end
+$var integer 32 & fail_count [31:0] $end
+$var integer 32 ' test_id [31:0] $end
+$scope module uut $end
+$var wire 16 ( a [15:0] $end
+$var wire 3 ) alu_control [2:0] $end
+$var wire 16 * b [15:0] $end
+$var wire 1 ! zero $end
+$var reg 16 + result [15:0] $end
+$upscope $end
+$scope task check_result $end
+$var reg 16 , expected [15:0] $end
+$var reg 16 - got [15:0] $end
+$var reg 64 . id [63:0] $end
+$upscope $end
+$scope task check_zero $end
+$var reg 1 / expected $end
+$var reg 1 0 got $end
+$var reg 64 1 id [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx 1
+x0
+x/
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+bx (
+b1 '
+b0 &
+bx %
+bx $
+bx #
+bx "
+z!
+$end

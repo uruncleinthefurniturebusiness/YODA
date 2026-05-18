@@ -1,0 +1,205 @@
+$date
+	Wed Apr 22 07:06:15 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module GPR_tb $end
+$var wire 16 ! read_data2 [15:0] $end
+$var wire 16 " read_data1 [15:0] $end
+$var reg 1 # clk $end
+$var reg 3 $ read_addr1 [2:0] $end
+$var reg 3 % read_addr2 [2:0] $end
+$var reg 3 & write_addr [2:0] $end
+$var reg 16 ' write_data [15:0] $end
+$var reg 1 ( write_en $end
+$scope module uut $end
+$var wire 1 # clk $end
+$var wire 3 ) read_addr1 [2:0] $end
+$var wire 3 * read_addr2 [2:0] $end
+$var wire 3 + write_addr [2:0] $end
+$var wire 16 , write_data [15:0] $end
+$var wire 1 ( write_en $end
+$var wire 16 - read_data2 [15:0] $end
+$var wire 16 . read_data1 [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 / \registers[0] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 0 \registers[1] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 1 \registers[2] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 2 \registers[3] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 3 \registers[4] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 4 \registers[5] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 5 \registers[6] [15:0] $end
+$upscope $end
+$upscope $end
+$scope module GPR_tb $end
+$scope module uut $end
+$var reg 16 6 \registers[7] [15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+bx 1
+bx 0
+bx /
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+0(
+b0 '
+b0 &
+b0 %
+b0 $
+0#
+b0 "
+b0 !
+$end
+#5000
+1#
+#6000
+b1010101010101010 '
+b1010101010101010 ,
+b1 &
+b1 +
+1(
+#10000
+0#
+#15000
+b1010101010101010 0
+1#
+#16000
+b1010101010101010 "
+b1010101010101010 .
+b1 $
+b1 )
+0(
+#20000
+0#
+#25000
+1#
+#30000
+0#
+#35000
+1#
+#36000
+b1111111111111111 '
+b1111111111111111 ,
+b0 &
+b0 +
+1(
+#40000
+0#
+#45000
+1#
+#46000
+b0 "
+b0 .
+b0 $
+b0 )
+0(
+#50000
+0#
+#55000
+1#
+#60000
+0#
+#65000
+1#
+#66000
+b1011111011101111 '
+b1011111011101111 ,
+b10 &
+b10 +
+#70000
+0#
+#75000
+1#
+#76000
+bx "
+bx .
+b10 $
+b10 )
+#80000
+0#
+#85000
+1#
+#90000
+0#
+#95000
+1#
+#96000
+b1001000110100 '
+b1001000110100 ,
+1(
+#100000
+0#
+#105000
+b1001000110100 "
+b1001000110100 .
+b1001000110100 1
+1#
+#106000
+b1001000110100 !
+b1001000110100 -
+b1010101010101010 "
+b1010101010101010 .
+b10 %
+b10 *
+b1 $
+b1 )
+0(
+#110000
+0#
+#115000
+1#
+#120000
+0#
+#125000
+1#
+#130000
+0#
+#135000
+1#
+#136000

@@ -1,0 +1,65 @@
+$date
+	Wed Apr 22 15:41:48 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module GPR_tb $end
+$var wire 16 ! reg_read_data_1 [15:0] $end
+$var wire 16 " reg_read_data_2 [15:0] $end
+$var reg 1 # clk $end
+$var reg 3 $ reg_read_addr_1 [2:0] $end
+$var reg 3 % reg_read_addr_2 [2:0] $end
+$var reg 16 & reg_write_data [15:0] $end
+$var reg 3 ' reg_write_dest [2:0] $end
+$var reg 1 ( reg_write_en $end
+$var integer 32 ) fail_count [31:0] $end
+$var integer 32 * test_id [31:0] $end
+$scope module uut $end
+$var wire 1 # clk $end
+$var wire 3 + reg_read_addr_1 [2:0] $end
+$var wire 3 , reg_read_addr_2 [2:0] $end
+$var wire 16 - reg_read_data_1 [15:0] $end
+$var wire 16 . reg_read_data_2 [15:0] $end
+$var wire 16 / reg_write_data [15:0] $end
+$var wire 3 0 reg_write_dest [2:0] $end
+$var wire 1 ( reg_write_en $end
+$upscope $end
+$scope task check16 $end
+$var reg 16 1 expected [15:0] $end
+$var reg 16 2 got [15:0] $end
+$var reg 64 3 id [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx 3
+bx 2
+bx 1
+b0 0
+b0 /
+bz .
+bz -
+b0 ,
+b0 +
+b1 *
+b0 )
+0(
+b0 '
+b0 &
+b0 %
+b0 $
+0#
+bz "
+bz !
+$end
+#5000
+1#
+#6000

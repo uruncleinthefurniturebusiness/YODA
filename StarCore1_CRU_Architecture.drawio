@@ -1,0 +1,33 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="Is0yZ1H-95Pf2cWvn6qa">
+    <mxGraphModel dx="1132" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-5" parent="1" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="Control Unit" vertex="1">
+          <mxGeometry height="170" width="90" x="400" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-6" parent="1" style="whiteSpace=wrap;html=1;" value="Data Memory" vertex="1">
+          <mxGeometry height="130" width="70" x="710" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-10" edge="1" parent="1" source="bYAm_zOKIkN85GU_Zc-m-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="bYAm_zOKIkN85GU_Zc-m-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-7" parent="1" style="whiteSpace=wrap;html=1;" value="Instruction Memory" vertex="1">
+          <mxGeometry height="180" width="60" x="240" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-8" parent="1" style="whiteSpace=wrap;html=1;" value="PC" vertex="1">
+          <mxGeometry height="110" width="50" x="60" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="bYAm_zOKIkN85GU_Zc-m-9" edge="1" parent="1" source="bYAm_zOKIkN85GU_Zc-m-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="110" y="234" />
+            </Array>
+            <mxPoint x="240" y="234" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
