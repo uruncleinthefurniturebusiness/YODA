@@ -1,7 +1,7 @@
 # Coordinate Rotation Unit (CRU) — Technical Write-Up
 
 **EEE4120F HPES Project — Group 11**
-**Members:** Joshua Smith (SMTJOS022), Ebrahim Bhyat (BHYEBR002), Tlangalani Tembe (TMBTLA001), Tlangelani Tembe (TMBTLA001)
+**Members:** Joshua Smith (SMTJOS022), Ebrahim Bhyat (BHYEBR002), Tlangalani Tembe (TMBTLA001)
 
 ---
 
