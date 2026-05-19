@@ -1,7 +1,7 @@
 # StarCore-1 + CRU Co-Processor
 
 **EEE4120F HPES Project 2026 — Group 11**  
-Joshua Smith (SMTJOS022) · Ebrahim Bhyat (BHYEBR002) · Tlangalani Tembe (TMBTLA001)
+Joshua Smith (SMTJOS022) · Ebrahim Bhyat (BHYEBR002) · Tlangelani Tembe (TMBTLA001)
 
 ---
 
