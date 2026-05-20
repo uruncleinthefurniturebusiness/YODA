@@ -120,33 +120,38 @@ module CRU_tb;
         $display("  Angle in: Q3.13 (×8192).  Out: Q2.14 (×16384).");
         $display("  Pass threshold: |err| <= 8 (~0.05%%)");
         $display("-------------------------------------------------------");
-        $display("  --- Acute angles (no quadrant fold) ---");
+        $display("  --- Positive angles ---");
 
-        run_test(16'sd0,      16'sd16384, 16'sd0,     "theta = 0       ");
-        run_test(16'sd4291,   16'sd14189, 16'sd8192,  "theta = pi/6    ");
-        run_test(16'sd6434,   16'sd11585, 16'sd11585, "theta = pi/4    ");
-        run_test(16'sd8579,   16'sd8192,  16'sd14189, "theta = pi/3    ");
-
-        $display("  --- Boundary angles ---");
-
-        run_test(16'sd12868,  16'sd0,     16'sd16384, "theta = pi/2    ");
-        run_test(16'sd25737, -16'sd16384, 16'sd0,     "theta = pi      ");
-
-        $display("  --- Obtuse angles (quadrant fold applied) ---");
-
-        run_test(16'sd17157, -16'sd8192,  16'sd14189, "theta = 2pi/3   ");
-        run_test(16'sd19302, -16'sd11585, 16'sd11585, "theta = 3pi/4   ");
-        run_test(16'sd21446, -16'sd14189, 16'sd8192,  "theta = 5pi/6   ");
+        run_test( 16'sd0,      16'sd16384,  16'sd0,      "theta =   0 deg ");
+        run_test( 16'sd2145,   16'sd15826,  16'sd4240,   "theta =  15 deg ");
+        run_test( 16'sd4289,   16'sd14189,  16'sd8192,   "theta =  30 deg ");
+        run_test( 16'sd6434,   16'sd11585,  16'sd11585,  "theta =  45 deg ");
+        run_test( 16'sd8579,   16'sd8192,   16'sd14189,  "theta =  60 deg ");
+        run_test( 16'sd12868,  16'sd0,      16'sd16384,  "theta =  90 deg ");
+        run_test( 16'sd15013, -16'sd4240,   16'sd15826,  "theta = 105 deg ");
+        run_test( 16'sd17157, -16'sd8192,   16'sd14189,  "theta = 120 deg ");
+        run_test( 16'sd19302, -16'sd11585,  16'sd11585,  "theta = 135 deg ");
+        run_test( 16'sd21447, -16'sd14189,  16'sd8192,   "theta = 150 deg ");
+        run_test( 16'sd23591, -16'sd15826,  16'sd4240,   "theta = 165 deg ");
+        run_test( 16'sd25736, -16'sd16384,  16'sd0,      "theta = 180 deg ");
 
         $display("  --- Negative angles ---");
 
-        run_test(-16'sd6434,  16'sd11585,-16'sd11585, "theta = -pi/4   ");
-        run_test(-16'sd12868, 16'sd0,    -16'sd16384, "theta = -pi/2   ");
-        run_test(-16'sd19302,-16'sd11585,-16'sd11585, "theta = -3pi/4  ");
+        run_test(-16'sd2145,   16'sd15826, -16'sd4240,   "theta = -15 deg ");
+        run_test(-16'sd4289,   16'sd14189, -16'sd8192,   "theta = -30 deg ");
+        run_test(-16'sd6434,   16'sd11585, -16'sd11585,  "theta = -45 deg ");
+        run_test(-16'sd8579,   16'sd8192,  -16'sd14189,  "theta = -60 deg ");
+        run_test(-16'sd12868,  16'sd0,     -16'sd16384,  "theta = -90 deg ");
+        run_test(-16'sd15013, -16'sd4240,  -16'sd15826,  "theta =-105 deg ");
+        run_test(-16'sd17157, -16'sd8192,  -16'sd14189,  "theta =-120 deg ");
+        run_test(-16'sd19302, -16'sd11585, -16'sd11585,  "theta =-135 deg ");
+        run_test(-16'sd21447, -16'sd14189, -16'sd8192,   "theta =-150 deg ");
+        run_test(-16'sd23591, -16'sd15826, -16'sd4240,   "theta =-165 deg ");
+        run_test(-16'sd25736, -16'sd16384,  16'sd0,      "theta =-180 deg ");
 
         $display("  --- Back-to-back IDLE recovery ---");
 
-        run_test(16'sd0,      16'sd16384, 16'sd0,     "theta = 0 again ");
+        run_test(16'sd0,       16'sd16384,  16'sd0,      "theta = 0 again ");
 
         $display("-------------------------------------------------------");
         $display("  Results: %0d passed, %0d failed", pass_count, fail_count);
